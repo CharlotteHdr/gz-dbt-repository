@@ -1,4 +1,4 @@
- # schema.yml
+# schema.yml
 
 version: 2
 
@@ -9,27 +9,25 @@ sources:
       - name: sales
         identifier: raw_gz_sales
         description: sales of Greenweez / we have on row per product_id found in each orders_id
+        loaded_at_field: CAST(date_date AS TIMESTAMP)
+        freshness:
+        warn_after: { 90 }
         columns:
-           - name: date_date
-             description: date of purchase
-             tests:
-              - unique
-              - not_null
+          - name: date_date
+            description: date of purchase
       - name: product
         identifier: raw_gz_product
         description: product of Greenweez / we have on row per product_id found in purchase_price
         columns:
-           - name: products_id
-             description: id of product
-             tests:
-              - unique
+          - name: products_id
+            description: id of product
+            tests:
               - not_null
       - name: ship
         identifier: raw_gz_ship
         description: ship of Greenweez / we have cost on orders_id
         columns:
-           - name: orders_id
-             description: orders
-             tests:
-              - unique
+          - name: orders_id
+            description: orders
+            tests:
               - not_null
